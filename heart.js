@@ -5,8 +5,8 @@ class Heart{
             w: window.innerWidth,
             h: window.innerHeight
         }
-        this.heartPosX =this.getRandomArbitrary(0, this.canvasSize.h)
-        this.heartPosY = this.getRandomArbitrary(0, this.canvasSize.w)
+        this.heartPosX =this.getRandomArbitrary(0, this.canvasSize.w)
+        this.heartPosY = this.getRandomArbitrary(0, this.canvasSize.h)
          this.heartSizew = 20;
         this.heartSizeh = 20;
         this.imageName = heartImage;

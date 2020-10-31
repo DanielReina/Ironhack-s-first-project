@@ -15,10 +15,12 @@ let akaneApp = {
 
     }, 
     arrayEnemys: [],
+    arrayEnemy2: [],
     arrayHearts: [],
     movx : 300,
     movy: 300,
-    levelToDifficulty : 4000,
+    levelToDifficulty: 4000,
+    levelToDifficulty2 : 10000,
        
     
 
@@ -31,8 +33,10 @@ let akaneApp = {
         
         this.createHero()
         this.createEnemy()
+        this.createEnemy2()
         this.createHeart()
         this.drawAll() 
+        // this.colision()
       this.setEventListeners()
        
     },
@@ -67,10 +71,27 @@ createHero() {
     this.arrayEnemys.push(this.enemy = new Enemys(this.ctx, 3, 'chofer.jpg'));
 
      console.log(this.arrayEnemys)
-        }, this.levelToDifficulty)
-         
-        
+        }, this.levelToDifficulty)       
     },
+
+
+createEnemy2() {
+        // if (this.frames % 340 === 0 && this.levelToDifficulty >= 1001) {
+                       
+        //     this.levelToDifficulty -= 1000
+        // }
+        
+        setInterval(() => {
+            this.enemy2 = new Enemy2(this.ctx, 3, 'gordo.png');
+
+    this.arrayEnemy2.push(this.enemy2 = new Enemy2(this.ctx, 3, 'gordo.png'));
+
+     console.log(this.arrayEnemy2)
+        }, this.levelToDifficulty2)       
+    },
+
+
+
  createHeart() {
 
         setInterval(() => {
@@ -102,6 +123,37 @@ setEventListeners() {
     },
   
 
+//     colision() {
+//     this.hero = new Hero(this.ctx, 300, 300,'tioDeRojo.png')
+//         this.heart = new Heart(this.ctx, 'corazon.png');
+//         this.arrayHearts = [];
+//         this.movx = 300;
+//         this.movy = 300;
+
+
+//      if (this.movx < this.arrayHearts[0].heartPosX + this.arrayHearts[0].heartSizew &&
+//    this.movx + this.hero.heroWith > this.arrayHearts[0].heartPosX &&
+//    this.movy< this.arrayHearts[0].heartPosY + this.arrayHearts[0].heartSizeh &&
+//    this.hero.heroHeight + this.movy > this.arrayHearts[0].heartPosY) {
+//          alert('¡colision detectada!');
+//      }
+//        },   
+        
+              
+//         // if (this.hero.positionx > (this.heart.positionx + this.heart.heartSizew)){
+//         //             console.log("fr")
+//         // }
+//         // else if ((this.hero.positionx + this.hero.heroWith) <  this.heart.positionx) {console.log("2")}
+//         // else if(this.hero.positiony > (this.heart.positiony + this.heart.heartSizeh)){ console.log("3")}
+//         // else if ((this.hero.heroHeight + this.hero.positiony) < this.heart.positiony) { console.log("4") }
+//         // else {
+//         //     alert("choqueeee")
+//         // }  
+        
+        
+        
+  
+
     drawAll() {
         setInterval(() => {
             this.frames++
@@ -111,7 +163,13 @@ setEventListeners() {
            
             // this.arrayEnemys[0].draw()
              for (i = 0; i < this.arrayEnemys.length; i++){
-                this.arrayEnemys[i].draw() }
+                 this.arrayEnemys[i].draw()
+             }
+            
+             for (i = 0; i < this.arrayEnemy2.length; i++){
+                 this.arrayEnemy2[i].draw()
+             }
+            
             for (i = 0; i < this.arrayHearts.length; i++) {
                 this.heart.draw()
              
