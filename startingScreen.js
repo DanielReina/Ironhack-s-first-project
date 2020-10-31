@@ -1,5 +1,5 @@
 
-let startingScreenApp = {
+let akaneApp = {
     ctx: undefined,
     canvasTag: undefined,
     frames: 0,
@@ -17,7 +17,8 @@ let startingScreenApp = {
     arrayEnemys: [],
     arrayHearts: [],
     movx : 300,
-    movy:300,
+    movy: 300,
+    levelToDifficulty : 4000,
        
     
 
@@ -44,6 +45,7 @@ let startingScreenApp = {
         }
         this.canvasTag.setAttribute('width', this.canvasSize.w)
         this.canvasTag.setAttribute('height', this.canvasSize.h)
+        
     },
 
 createHero() {
@@ -54,14 +56,18 @@ createHero() {
    
 
     createEnemy() {
-
+        if (this.frames % 340 === 0 && this.levelToDifficulty >= 1001) {
+                       
+            this.levelToDifficulty -= 1000
+        }
+        
         setInterval(() => {
-            this.enemy = new Enemys(this.ctx, 10, 10, 'chofer.jpg');
+            this.enemy = new Enemys(this.ctx, 3, 'chofer.jpg');
 
-    this.arrayEnemys.push(this.enemy = new Enemys(this.ctx, 10, 10, 'chofer.jpg'));
+    this.arrayEnemys.push(this.enemy = new Enemys(this.ctx, 3, 'chofer.jpg'));
 
      console.log(this.arrayEnemys)
-        }, 2000)
+        }, this.levelToDifficulty)
          
         
     },
@@ -99,7 +105,7 @@ setEventListeners() {
     drawAll() {
         setInterval(() => {
             this.frames++
-           
+           console.log(this.frames)
           
             this.clearScreen()
            
@@ -128,6 +134,6 @@ window.onload = () => {
     document.querySelector('.start-button').onclick = () => {
         button.classList.add('button')
         button.classList.remove('start-button')
-        startingScreenApp.init('myCanvas');
+        akaneApp.init('myCanvas');
     };
 }

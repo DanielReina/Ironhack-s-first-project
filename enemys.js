@@ -1,5 +1,5 @@
 class Enemys {
-    constructor(ctx, enemyVelX, enemyVelY, enemyImage ) {
+    constructor(ctx,speed , enemyImage ) {
         this.ctx = ctx  
         this.canvasSize = {
             w: window.innerWidth,
@@ -9,10 +9,7 @@ class Enemys {
         this.enemyPosY =0
         this.enemySizew = 70;
         this.enemySizeh = 70;
-               this.enemyVel = {
-            x: enemyVelX,
-            y: enemyVelY
-        }
+        this.speed = speed;
         this.imageName = enemyImage;
         this.getRandomArbitrary()
         this.enemyInstance = undefined        
@@ -30,12 +27,28 @@ class Enemys {
         this.enemyInstance.src = `img/${this.imageName}`          
         }
         
-         draw() {
+    draw() {
+        this.move()    
         this.ctx.drawImage(this.enemyInstance, this.enemyPosX, this.enemyPosY, this.enemySizew, this.enemySizeh)
          }
     
+    
+    
     move() {
+        if  (this.enemyPosX < akaneApp.movx){
+            this.enemyPosX += this.speed;
+        }
+        if  (this.enemyPosX > akaneApp.movx){
+            this.enemyPosX -= this.speed;
+        }
+        if (this.enemyPosY < akaneApp.movy) {
+            this.enemyPosY += this.speed;
+        }
+         if (this.enemyPosY > akaneApp.movy) {
+            this.enemyPosY -= this.speed;
+         }
         
     }
     
 }
+
