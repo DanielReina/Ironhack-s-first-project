@@ -14,7 +14,10 @@ let startingScreenApp = {
         down: 's'   
 
     }, 
-    arrayEnemys:[],
+    arrayEnemys: [],
+    arrayHearts: [],
+    movx : 300,
+    movy:300,
        
     
 
@@ -24,11 +27,13 @@ let startingScreenApp = {
         this.canvasTag = document.getElementById(id)
         this.ctx = this.canvasTag.getContext('2d')
         this.setDimensions()
+        
         this.createHero()
         this.createEnemy()
+        this.createHeart()
         this.drawAll() 
-        this.setEventListeners()
-        this.getRandomArbitrary()
+      this.setEventListeners()
+       
     },
 
 
@@ -46,41 +51,65 @@ createHero() {
     },
 
 
-    getRandomArbitrary(min, max) {
-        return Math.random() * (max - min) + min;
-          },
-        
+   
 
     createEnemy() {
-        this.enemy = new Enemys(this.ctx, this.getRandomArbitrary(0, this.canvasSize.h), 400, 10, 10, 'chofer.jpg');
 
         setInterval(() => {
-            
-            this.arrayEnemys.push(this.enemy); 
-            console.log(this.arrayEnemys)
-        }, 1000)
+            this.enemy = new Enemys(this.ctx, 10, 10, 'chofer.jpg');
 
+    this.arrayEnemys.push(this.enemy = new Enemys(this.ctx, 10, 10, 'chofer.jpg'));
+
+     console.log(this.arrayEnemys)
+        }, 2000)
+         
+        
     },
- 
+ createHeart() {
 
-    setEventListeners() {
+        setInterval(() => {
+            this.heart = new Heart(this.ctx, 'corazon.png');
+
+            this.arrayHearts.push(this.heart = new Heart(this.ctx, 'corazon.png'));
+
+
+        console.log(this.arrayHearts)
+        }, 6000)
+         
+        
+    },
+    
+ 
+ 
+ 
+setEventListeners() {
         document.onkeydown = e => {
             e.key === this.keys.left ? this.hero.move('left') : null
+            e.key === this.keys.left ? this.movx -= 20 : null
             e.key === this.keys.right ? this.hero.move('right') : null
+            e.key === this.keys.right ? this.movx += 20 : null
             e.key === this.keys.up ? this.hero.move('up') : null
+            e.key === this.keys.up ? this.movy-=20 : null
             e.key === this.keys.down ? this.hero.move('down') : null
+            e.key === this.keys.down ? this.movy+=20 : null
         }
     },
+  
 
-
- drawAll() {
+    drawAll() {
         setInterval(() => {
             this.frames++
-            
+           
+          
             this.clearScreen()
-            this.arrayEnemys.forEach(elm => elm.draw())
-            this.enemy.draw()
-            this.hero.draw()
+           
+            // this.arrayEnemys[0].draw()
+             for (i = 0; i < this.arrayEnemys.length; i++){
+                this.arrayEnemys[i].draw() }
+            for (i = 0; i < this.arrayHearts.length; i++) {
+                this.heart.draw()
+             
+            }   this.hero.draw()
         }, 70)
     },
  clearScreen() {
