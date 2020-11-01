@@ -35,16 +35,16 @@ class Enemys {
     
     
     move() {
-        if  (this.enemyPosX < akaneApp.movx){
+        if  (this.enemyPosX < akaneApp.hero.positionx){
             this.enemyPosX += this.speed;
         }
-        if  (this.enemyPosX > akaneApp.movx){
+        if  (this.enemyPosX > akaneApp.hero.positionx){
             this.enemyPosX -= this.speed;
         }
-        if (this.enemyPosY < akaneApp.movy) {
+        if (this.enemyPosY < akaneApp.hero.positiony) {
             this.enemyPosY += this.speed;
         }
-         if (this.enemyPosY > akaneApp.movy) {
+         if (this.enemyPosY > akaneApp.hero.positiony) {
             this.enemyPosY -= this.speed;
          }
         

@@ -11,15 +11,15 @@ let akaneApp = {
         left: 'a',
         right: 'd',
         up: 'w',
-        down: 's'
-
+        down: 's',
+        space: ' '
     },
     arrayEnemys: [],
     arrayEnemy2: [],
     arrayHearts: [],
     movx : 300,
     movy: 300,
-    levelToDifficulty: 4000,
+    levelToDifficulty: 8000,
     levelToDifficulty2: 10000,
     vidas:5,
 
@@ -57,7 +57,8 @@ let akaneApp = {
     },
 
 createHero() {
-        this.hero = new Hero(this.ctx, 300, 300,'tioDeRojo.png')
+    this.hero = new Hero(this.ctx, 300, 300, 'tioDeRojo.png')
+    
     },
 
 createGameOver() {
@@ -108,9 +109,9 @@ createGameOver() {
 createEnemy2() {
 
         setInterval(() => {
-            this.enemy2 = new Enemy2(this.ctx, 3, 'gordo.png');
+            this.enemy2 = new Enemy2(this.ctx, 1, 'gordo.png');
 
-    this.arrayEnemy2.push(this.enemy2 = new Enemy2(this.ctx, 3, 'gordo.png'));
+    this.arrayEnemy2.push(this.enemy2 = new Enemy2(this.ctx, 1, 'gordo.png'));
 
         }, this.levelToDifficulty2)
     },
@@ -135,14 +136,11 @@ createEnemy2() {
 
 setEventListeners() {
         document.onkeydown = e => {
-            e.key === this.keys.left ? this.hero.move('left') : null
-            e.key === this.keys.left ? this.movx -= 20 : null
-            e.key === this.keys.right ? this.hero.move('right') : null
-            e.key === this.keys.right ? this.movx += 20 : null
-            e.key === this.keys.up ? this.hero.move('up') : null
-            e.key === this.keys.up ? this.movy-=20 : null
+            e.key === this.keys.left ? this.hero.move('left') : null          
+            e.key === this.keys.right ? this.hero.move('right') : null            
+            e.key === this.keys.up ? this.hero.move('up') : null     
             e.key === this.keys.down ? this.hero.move('down') : null
-            e.key === this.keys.down ? this.movy+=20 : null
+            e.key === this.keys.space ?this.hero.hit() : null
         }
     },
 
@@ -151,11 +149,10 @@ setEventListeners() {
 
    setInterval(()=>{ for (i = 0; i < this.arrayHearts.length; i++){
 
-
-             if (this.movx < this.arrayHearts[i].heartPosX + this.arrayHearts[i].heartSizew &&
-           this.movx + this.hero.heroWith > this.arrayHearts[i].heartPosX &&
-           this.movy< this.arrayHearts[i].heartPosY + this.arrayHearts[i].heartSizeh &&
-           this.hero.heroHeight + this.movy > this.arrayHearts[i].heartPosY) {
+           if (this.hero.positionx < this.arrayHearts[i].heartPosX + this.arrayHearts[i].heartSizew &&
+           this.hero.positionx + this.hero.heroWith > this.arrayHearts[i].heartPosX &&
+           this.hero.positiony< this.arrayHearts[i].heartPosY + this.arrayHearts[i].heartSizeh &&
+           this.hero.heroHeight + this.hero.positiony > this.arrayHearts[i].heartPosY) {
                  if (this.vidas <= 9){
                      this.vidas += 1
                  }
@@ -165,47 +162,49 @@ setEventListeners() {
                 }},70)
 
 
-
     },
     hitEnemy() {
 
    setInterval(()=>{ for (i = 0; i < this.arrayEnemys.length; i++){
 
-
-             if (this.movx < this.arrayEnemys[i].enemyPosX + this.arrayEnemys[i].enemySizew &&
-           this.movx + this.hero.heroWith > this.arrayEnemys[i].enemyPosX &&
-           this.movy< this.arrayEnemys[i].enemyPosY + this.arrayEnemys[i].enemySizeh &&
-           this.hero.heroHeight + this.movy > this.arrayEnemys[i].enemyPosY) {
-                 if (this.vidas >0 ){
-                     this.vidas -= 1
+           
+       
+             if (this.hero.positionx < this.arrayEnemys[i].enemyPosX + this.arrayEnemys[i].enemySizew &&
+           this.hero.positionx+ this.hero.heroWith > this.arrayEnemys[i].enemyPosX &&
+           this.hero.positiony< this.arrayEnemys[i].enemyPosY + this.arrayEnemys[i].enemySizeh &&
+           this.hero.heroHeight + this.hero.positiony > this.arrayEnemys[i].enemyPosY) {
+                 if (this.vidas >0 && (this.hero.heroWith === 90)){
+                       this.vidas -= 1
+                     this.arrayEnemys.pop()
+                 }
+                 if (this.vidas > 0 && (this.hero.heroWith === 100)) {
+                    
                      this.arrayEnemys.pop()
                  }
 
-
              }
                 }},70)
-
-
 
                },
       hitEnemy2() {
 
    setInterval(()=>{ for (i = 0; i < this.arrayEnemys.length; i++){
 
-
-             if (this.movx < this.arrayEnemy2[i].enemy2PosX + this.arrayEnemy2[i].enemy2Sizew &&
-           this.movx + this.hero.heroWith > this.arrayEnemy2[i].enemy2PosX &&
-           this.movy< this.arrayEnemy2[i].enemy2PosY + this.arrayEnemy2[i].enemy2Sizeh &&
-           this.hero.heroHeight + this.movy > this.arrayEnemy2[i].enemy2PosY) {
-                 if (this.vidas >0 ){
+      if (this.hero.positionx < this.arrayEnemy2[i].enemy2PosX + this.arrayEnemy2[i].enemy2Sizew &&
+           this.hero.positionx + this.hero.heroWith > this.arrayEnemy2[i].enemy2PosX &&
+           this.hero.positiony< this.arrayEnemy2[i].enemy2PosY + this.arrayEnemy2[i].enemy2Sizeh &&
+           this.hero.heroHeight + this.hero.positiony> this.arrayEnemy2[i].enemy2PosY) {
+                 if (this.vidas >0 && (this.hero.heroWith === 90)){
                      this.vidas -= 2
+                     this.arrayEnemy2.pop()
+                }
+                 if (this.vidas > 0 && (this.hero.heroWith === 100)) {
+                    
                      this.arrayEnemy2.pop()
                  }
 
-
              }
                 }},70)
-
 
 
                },
@@ -320,7 +319,7 @@ setEventListeners() {
                 this.health1.draw()
                 break
                         case 10:
-                this.nohealth10.draw()
+                this.health10.draw()
                 this.health9.draw()
                 this.health8.draw()
                 this.health7.draw()
@@ -339,15 +338,14 @@ setEventListeners() {
         if (this.vidas <= 0) {
             this.clearScreen()
            this.gameover.draw()
-            clearInterval(this.Interval)
-            
+            clearInterval(this.Interval)  
         }
-        
-            
+          
         },
 
 
     drawAll() {
+        
         this.Interval = setInterval(() => {
             this.frames++
 
@@ -375,11 +373,6 @@ setEventListeners() {
  clearScreen() {
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h)
     },
-
-
-
-
-
 
 }
 

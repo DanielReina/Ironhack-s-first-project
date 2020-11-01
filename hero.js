@@ -33,31 +33,58 @@ class Hero {
   
   move(dir) {
   
-    if ((this.positionx + (this.heroWith + 20)) <= this.canvasSize.w && this.positionx > 0) {
+    if ((this.positionx + (this.heroWith)) <= this.canvasSize.w && this.positionx > 0) {
       dir === 'left' ? this.positionx -= 20 : null
       dir === 'right' ? this.positionx += 20 : null
     }
     
-    if (this.positiony + (this.heroHeight + 20) <= this.canvasSize.h && this.positiony > 0) {
+    if (this.positiony + (this.heroHeight) <= this.canvasSize.h && this.positiony > 0) {
       dir === 'up' ? this.positiony -= 20 : null
       dir === 'down' ? this.positiony += 20 : null
     }
     
-    if ((this.positionx + (this.heroWith +20)) <= this.canvasSize.w) {
+    if ((this.positionx + (this.heroWith)) <= this.canvasSize.w) {
       dir === 'right' ? this.positionx += 20 : null
     }
 if (this.positionx > 0) {
      dir === 'left' ? this.positionx -= 20 : null
 }
     
-    if (this.positiony + (this.heroHeight+20) <= this.canvasSize.h) {
+    if (this.positiony + (this.heroHeight) <= this.canvasSize.h) {
       dir === 'down' ? this.positiony += 20 : null
      }
     if (this.positiony > 0) {
       dir === 'up' ? this.positiony -= 20 : null
     }
-
+    
+    
 
 
   }
+
+
+
+  hit() {
+
+
+    function sizeDown(popino) {
+  
+
+    popino.heroWith = 90;
+    popino.heroHeight = 90;
+    }
+    console.log('algo')
+    this.heroWith = 100;
+    this.heroHeight = 100;
+    let myvar = setTimeout(sizeDown,500,this); 
+    
+    myvar
+    
+  }
+
+
+
+
 }
+
+
