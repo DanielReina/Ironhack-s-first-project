@@ -7,6 +7,7 @@ let akaneApp = {
         w: undefined,
         h: undefined
     },
+    hero:undefined,
     keys: {
         left: 'a',
         right: 'd',
@@ -19,10 +20,10 @@ let akaneApp = {
     movx : 300,
     movy: 300,
     levelToDifficulty: 8000,
-    levelToDifficulty2: 10000,
+    levelToDifficulty2: 16000,
     vidas:5,
     score:0,
-
+    fps:60,
 
 
 
@@ -55,8 +56,10 @@ let akaneApp = {
 
     },
 
-createHero() {
-    this.hero = new Hero(this.ctx, 300, 300, 'tioDeRojo.png')
+    createHero() {
+    
+        this.hero = new Hero(this.ctx, 300, 300)
+      
     
     },
 
@@ -93,12 +96,13 @@ createGameOver() {
 
 
     createEnemy() {
-        if (this.frames % 340 === 0 && this.levelToDifficulty >= 1001) {
+      
+
+        setInterval(() => {
+              if (this.frames % 340 === 0 && this.levelToDifficulty >= 1001) {
 
             this.levelToDifficulty -= 1000
         }
-
-        setInterval(() => {
             this.enemy = new Enemys(this.ctx, 3, 1, 100, 70, 70,'chofer.jpg');
 
     this.arrayEnemys.push(this.enemy = new Enemys(this.ctx, 3, 1, 100, 70, 70, 'chofer.jpg'));
@@ -191,8 +195,8 @@ setEventListeners() {
                    
                  }
                  if (this.vidas > 0 && (this.hero.heroWith === 100)) {
+                    this.score += this.arrayEnemys[i].score
                     this.arrayEnemys.splice(i, 1)
-                    this.score += this.enemy.score
                  }
 
              }
@@ -353,7 +357,8 @@ setEventListeners() {
     drawAll() {
         
         this.Interval = setInterval(() => {
-            this.frames++
+
+            this.frames > 5000 ? this.frames = 0 : this.frames++
             this.hero.move()
             this.clearScreen()
             this.drawBackground()
@@ -362,21 +367,19 @@ setEventListeners() {
              for (i = 0; i < this.arrayEnemys.length; i++){
                  this.arrayEnemys[i].draw()
              }
-
-           
-
             for (i = 0; i < this.arrayHearts.length; i++) {
-                this.heart.draw()
-                
+                this.heart.draw() 
             }
-            this.hero.draw()
+            if (this.hero.isMoving === false) {
+               this.hero.draw2(this.frames)
+           }else{this.hero.draw1(this.frames)}
             this.drawHealth()
             this.gameOver()
             this.scoreScreen()
+            
 
 
-
-        }, 70)
+        }, 150- this.fps)
     },
  clearScreen() {
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h)
