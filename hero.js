@@ -33,7 +33,7 @@ class Hero {
 
 
   draw2(frames) {
-  console.log('estoy quieto'+ this.imageStand.framesIndex)
+  
     this.ctx.drawImage(
       this.imageStand,
       this.imageStand.framesIndex * Math.floor(this.imageStand.width / this.imageStand.frames),
@@ -61,7 +61,7 @@ animateStand(frames) {
 
   
   draw1(frames) {
-    console.log('estoy moviéndome' + this.imageMove.framesIndex)
+    
     
     this.ctx.drawImage(
       this.imageMove,
