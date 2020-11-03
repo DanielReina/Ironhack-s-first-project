@@ -2,26 +2,33 @@ class Hero {
 
   constructor(ctx, heroPosX, heroPosY) {
     this.isMoving = false;
+    this.isAttacking = false;
     this.direction = '';
     this.ctx = ctx;
     this.positionx = heroPosX;
     this.positiony = heroPosY;
     this.heroWith = 90;
     this.heroHeight = 90;
+
     this.imageStand = new Image();
-    this.imageStand.src = "./img/papaquieto.png";
+    this.imageStand.src = "./img/ninjaquieto.png";
     this.imageStand.frames = 10;
     this.imageStand.framesIndex = 0;
+
     this.imageMove = new Image();
-    this.imageMove.src = "./img/papacamina.png";
-    this.imageMove.frames = 13;
+    this.imageMove.src = "./img/ninjacorre.png";
+    this.imageMove.frames = 10;
     this.imageMove.framesIndex = 0;
+
+    this.imageAttack = new Image();
+    this.imageAttack.src = "./img/ninjaAtaca.png";
+    this.imageAttack.frames = 9;
+    this.imageAttack.framesIndex = 0;
     
     
 
     this.heroInstance = undefined
-
-      this.nodamage=false
+    this.nodamage=false
     this.canvasSize = {
       w: window.innerWidth,
       h: window.innerHeight
@@ -30,9 +37,21 @@ class Hero {
 
   }
 
-
-
-  draw2(frames) {
+  drawAllHero() {
+    if (this.isAttacking === false) {
+     
+      if (this.isMoving === false) {
+        this.drawStand(akaneApp.frames)
+      } else {
+        this.drawMove(akaneApp.frames)
+      }
+    }
+    if (this.isAttacking ===true){
+      console.log('Esty atacando')
+      this.drawAttack(akaneApp.frames)
+    }
+  }
+  drawStand(frames) {
   
     this.ctx.drawImage(
       this.imageStand,
@@ -43,14 +62,14 @@ class Hero {
       this.imageStand.height,
       this.positionx,
       this.positiony,
-      this.heroWith,
-      this.heroHeight)
+      this.heroWith =45,
+      this.heroHeight= 90)
     this.animateStand(frames)
     
   }
 
 animateStand(frames) {
-
+  
     if (frames % 0.5 == 0) {
       this.imageStand.framesIndex++;
     }
@@ -58,9 +77,10 @@ animateStand(frames) {
       this.imageStand.framesIndex = 0;
     }
   }
-
   
-  draw1(frames) {
+ 
+  
+  drawMove(frames) {
     
     
     this.ctx.drawImage(
@@ -72,7 +92,7 @@ animateStand(frames) {
       this.imageMove.height,
       this.positionx,
       this.positiony,
-      this.heroWith,
+      this.heroWith=70,
       this.heroHeight)
     this.animateMove(frames)
     this.move()
@@ -86,6 +106,36 @@ animateStand(frames) {
       this.imageMove.framesIndex = 0;
     }
   }
+
+
+
+
+ drawAttack(frames) {
+    
+    
+    this.ctx.drawImage(
+      this.imageAttack,
+      this.imageAttack.framesIndex * Math.floor(this.imageAttack.width / this.imageAttack.frames),
+      0,
+      Math.floor(this.imageAttack.width / this.imageAttack.frames),
+      
+      this.imageAttack.height,
+      this.positionx,
+      this.positiony,
+      this.heroWith=100,
+      this.heroHeight=100 )
+    this.animateAttack(frames)
+   }
+  animateAttack(frames) {
+
+    if (frames % 0.5 == 0) {
+      this.imageAttack.framesIndex++;
+    }
+    if (this.imageAttack.framesIndex > this.imageAttack.frames - 1) {
+      this.imageAttack.framesIndex = 0;
+    }
+  }
+
 
 
   move() {
@@ -128,6 +178,7 @@ animateStand(frames) {
 
 
   invulnerability() {
+    console.log(this.nodamage)
      this.nodamage = true
     function invul(bar) {
       bar.nodamage=false
@@ -135,18 +186,18 @@ animateStand(frames) {
    
     let var2 = setTimeout(invul, 1000, this)
     
-        function sizeDown(popino) {
+    //     function sizeDown(popino) {
   
 
-    popino.heroWith = 90;
-    popino.heroHeight = 90;
-        }
-    var2 
-    this.heroWith =200;
-    this.heroHeight = 200;
-    let myvar = setTimeout(sizeDown,1000,this); 
+    // popino.heroWith = 90;
+    // popino.heroHeight = 90;
+    //     }
+    // var2 
+    // this.heroWith =200;
+    // this.heroHeight = 200;
+    // let myvar = setTimeout(sizeDown,1000,this); 
     
-    myvar
+    // myvar
     
 }
 
@@ -155,14 +206,10 @@ animateStand(frames) {
 
 
     function sizeDown(popino) {
-  
-
-    popino.heroWith = 90;
-    popino.heroHeight = 90;
+      popino.isAttacking = false
     }
     console.log('algo')
-    this.heroWith = 100;
-    this.heroHeight = 100;
+    this.isAttacking = true
     let myvar = setTimeout(sizeDown,500,this); 
     
     myvar

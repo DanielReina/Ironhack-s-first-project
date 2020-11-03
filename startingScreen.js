@@ -198,12 +198,11 @@ setEventListeners() {
            this.hero.positionx+ this.hero.heroWith > this.arrayEnemys[i].enemyPosX &&
            this.hero.positiony< this.arrayEnemys[i].enemyPosY + this.arrayEnemys[i].enemySizeh &&
            this.hero.heroHeight + this.hero.positiony > this.arrayEnemys[i].enemyPosY) {
-                 if (this.vidas >0 && (this.hero.heroWith === 90)){
+                 if (this.vidas >0 && this.hero.nodamage ===false && this.hero.isAttacking === false){
                     this.vidas -= this.arrayEnemys[i].damage
-                     this.hero.invulnerability()
-                   
+                     this.hero.invulnerability()                   
                  }
-                 if (this.vidas > 0 && (this.hero.heroWith === 100)) {
+                 if (this.vidas > 0 && (this.hero.isAttacking === true)) {
                     this.score += this.arrayEnemys[i].score
                     this.arrayEnemys.splice(i, 1)
                  }
@@ -369,9 +368,7 @@ setEventListeners() {
         for (i = 0; i < this.arrayHearts.length; i++) {
             this.arrayHearts[i].draw() 
         }
-        if (this.hero.isMoving === false) {
-            this.hero.draw2(this.frames)
-        }else{this.hero.draw1(this.frames)}
+        this.hero.drawAllHero()
         this.drawHealth()
         
         this.scoreScreen()
