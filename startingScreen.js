@@ -35,8 +35,6 @@ let akaneApp = {
         this.createEnemy2()
         this.createHeart()
         this.createHealth()
-        this.collisionHeart()
-        this.collisionEnemy()
         this.createGameOver()
         this.createBackground()
         this.drawAll()
@@ -162,8 +160,7 @@ setEventListeners() {
 
 
     collisionHeart() {
-
-   setInterval(()=>{ for (i = 0; i < this.arrayHearts.length; i++){
+ for (i = 0; i < this.arrayHearts.length; i++){
 
            if (this.hero.positionx < this.arrayHearts[i].heartPosX + this.arrayHearts[i].heartSizew &&
            this.hero.positionx + this.hero.heroWith > this.arrayHearts[i].heartPosX &&
@@ -176,13 +173,13 @@ setEventListeners() {
                  this.arrayHearts= []
              }
 
-                }},70)
+                }
 
 
     },
     collisionEnemy() {
 
-   setInterval(()=>{ for (i = 0; i < this.arrayEnemys.length; i++){
+    for (i = 0; i < this.arrayEnemys.length; i++){
 
              if (this.hero.positionx < this.arrayEnemys[i].enemyPosX + this.arrayEnemys[i].enemySizew &&
            this.hero.positionx+ this.hero.heroWith > this.arrayEnemys[i].enemyPosX &&
@@ -199,7 +196,7 @@ setEventListeners() {
                  }
 
              }
-                }},70)
+                }
 
                   
     },
@@ -360,6 +357,8 @@ setEventListeners() {
             this.hero.move()
             this.clearScreen()
             this.drawBackground()
+            this.collisionEnemy()
+            this.collisionHeart()
              for (i = 0; i < this.arrayEnemys.length; i++){
                  this.arrayEnemys[i].draw()
              }
