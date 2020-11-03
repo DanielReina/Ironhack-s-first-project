@@ -1,5 +1,5 @@
 class Enemys {
-    constructor(ctx, speed, damage, score, enemySizew, enemySizeh , enemyImage ) {
+    constructor(ctx, speed, damage, score, enemySizew, enemySizeh, enemyImage, frames) {
         this.ctx = ctx  
         this.canvasSize = {
             w: window.innerWidth,
@@ -18,26 +18,55 @@ class Enemys {
         this.enemySizeh = enemySizeh;
         this.speed = speed;
         this.imageName = enemyImage;
-        this.getRandomArbitrary()
-        this.enemyInstance = undefined        
-        this.init()
-      
-              
+        this.getRandomArbitrary()      
+        
+        this.imageMove = new Image()
+        this.imageMove.src = `../img/${this.imageName}`  
+        this.imageMove.frames = frames;
+        this.imageMove.framesIndex = 0;
     }
+    
+
+
+
+
+        drawMove(frames) {
+            
+            
+            this.ctx.drawImage(
+            this.imageMove,
+            this.imageMove.framesIndex * Math.floor(this.imageMove.width / this.imageMove.frames),
+            0,
+            Math.floor(this.imageMove.width / this.imageMove.frames),
+            
+            this.imageMove.height,
+            this.enemyPosX, 
+            this.enemyPosY,
+            this.enemySizew,
+            this.enemySizeh)
+            this.animateMove(frames)
+            this.move()
+        }
+        animateMove(frames) {
+
+            if (frames % 0.5 == 0) {
+            this.imageMove.framesIndex++;
+            }
+            if (this.imageMove.framesIndex > this.imageMove.frames - 1) {
+            this.imageMove.framesIndex = 0;
+            }
+        }
+
+
+
      getRandomArbitrary(min, max) {
         return Math.round(Math.random() * (max - min) + min);
           }
         
 
-      init(){ 
-        this.enemyInstance = new Image()
-        this.enemyInstance.src = `../img/${this.imageName}`          
-        }
+      
         
-    draw() {
-        this.move()    
-        this.ctx.drawImage(this.enemyInstance, this.enemyPosX, this.enemyPosY, this.enemySizew, this.enemySizeh)
-         }
+   
     
     enemysAppear() {
     console.log(this.caseScreen)

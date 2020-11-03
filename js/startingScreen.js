@@ -20,7 +20,7 @@ let akaneApp = {
     movx : 300,
     movy: 300,
     levelToDifficulty: 100,
-    levelToDifficulty2: 300,
+    levelToDifficulty2: 50,
     vidas:5,
     score:0,
     fps:60,
@@ -133,14 +133,14 @@ createGameOver() {
         // }
             
 
-    this.arrayEnemys.push(new Enemys(this.ctx, 3, 1, 100, 70, 70, 'chofer.jpg'));
+    this.arrayEnemys.push(new Enemys(this.ctx, 3, 1, 100, 80, 80, 'zombiecorre.png', 10));
 
      
     },
 
 
     createEnemy2() {
-        this.arrayEnemys.push(new Enemy2(this.ctx, this.speedEnemy, 2, 200, 130, 130, 'gordo.png'));
+        this.arrayEnemys.push(new Enemy2(this.ctx, this.speedEnemy, 2, 200, 130, 130, 'robotcorre.png', 8));
     },
 
 
@@ -363,7 +363,7 @@ setEventListeners() {
         this.clearScreen()
         this.drawBackground()        
         for (i = 0; i < this.arrayEnemys.length; i++){
-            this.arrayEnemys[i].draw()
+            this.arrayEnemys[i].drawMove(this.frames)
         }
         for (i = 0; i < this.arrayHearts.length; i++) {
             this.arrayHearts[i].draw() 
