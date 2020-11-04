@@ -408,9 +408,11 @@ setEventListeners() {
 
 window.onload = () => {
     let button = document.querySelector('button')
+    let div = document.querySelector('div')
     document.querySelector('.start-button').onclick = () => {
         button.classList.add('button')
         button.classList.remove('start-button')
+         div.classList.add('button')
         akaneApp.init('myCanvas');
     };
 
