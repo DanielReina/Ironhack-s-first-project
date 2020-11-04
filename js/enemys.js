@@ -1,5 +1,5 @@
 class Enemys {
-    constructor(ctx, speed, damage, score, enemySizew, enemySizeh, enemyImage, frames) {
+    constructor(ctx, speed, damage, score, enemySizew, enemySizeh, enemyImage, frames, imageAttack, framesAttack) {
         this.ctx = ctx  
         this.canvasSize = {
             w: window.innerWidth,
@@ -9,7 +9,7 @@ class Enemys {
         this.damage = damage
         this.caseScreen = 
             this.getRandomArbitrary(1, 4)
-        
+        this.isAttacking=false
             
         this.enemyPosX = undefined
         this.enemyPosY = undefined
@@ -24,10 +24,26 @@ class Enemys {
         this.imageMove.src = `../img/${this.imageName}`  
         this.imageMove.frames = frames;
         this.imageMove.framesIndex = 0;
+
+        this.imageName2 = imageAttack;
+        this.imageAttack = new Image()
+        this.imageAttack.src = `../img/${this.imageName2}`  
+        this.imageAttack.frames = framesAttack;
+        this.imageAttack.framesIndex = 0;
     }
     
 
+    drawAll() {
+        if (this.isAttacking===true ){
+              this.drawAttack(akaneApp.frames)
 
+        }
+        else {
+              this.drawMove(akaneApp.frames)
+
+            
+        }
+}
 
 
         drawMove(frames) {
@@ -46,14 +62,41 @@ class Enemys {
             this.enemySizeh)
             this.animateMove(frames)
             this.move()
-        }
-        animateMove(frames) {
+        } animateMove(frames) {
 
             if (frames % 0.5 == 0) {
             this.imageMove.framesIndex++;
             }
             if (this.imageMove.framesIndex > this.imageMove.frames - 1) {
             this.imageMove.framesIndex = 0;
+            }
+        }
+       
+    
+    drawAttack(frames) {
+                 
+            this.ctx.drawImage(
+            this.imageAttack,
+            this.imageAttack.framesIndex * Math.floor(this.imageAttack.width / this.imageAttack.frames),
+            0,
+            Math.floor(this.imageAttack.width / this.imageAttack.frames),
+            
+            this.imageAttack.height,
+            this.enemyPosX, 
+            this.enemyPosY,
+            this.enemySizew,
+            this.enemySizeh)
+            this.animateAttack(frames)
+            this.move()
+    }
+      
+     animateAttack(frames) {
+
+            if (frames % 0.5 == 0) {
+            this.imageAttack.framesIndex++;
+            }
+            if (this.imageAttack.framesIndex > this.imageAttack.frames - 1) {
+            this.imageAttack.framesIndex = 0;
             }
         }
 
@@ -106,6 +149,19 @@ class Enemys {
          }
         
     }
+    hit() {
+
+
+    function sizeDown(popino) {
+      popino.isAttacking = false
+    }
+    console.log('algo')
+    this.isAttacking = true
+    let myvar = setTimeout(sizeDown,500,this); 
+    
+    myvar
+    
+  }
     
 }
 

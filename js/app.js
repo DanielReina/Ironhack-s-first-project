@@ -22,7 +22,10 @@ let akaneApp = {
     levelToDifficulty: 100,
     levelToDifficulty2: 50,
     vidas:5,
-    score:0,
+    score: 0,
+    scoreHealth: 0,
+    scoreEnemy1: 0,
+    scoreEnemy2: 0,
     fps:60,
     speedEnemy: 1,
 
@@ -44,7 +47,6 @@ let akaneApp = {
 
     start() {
         this.Interval = setInterval(() => {
-            console.log(this.frames)
 
             this.frames > 50000 ? this.frames = 0 : this.frames++
             if (this.frames % this.levelToDifficulty2 === 0) {
@@ -94,7 +96,7 @@ let akaneApp = {
     },
 
 createGameOver() {
-        this.gameover = new GameOver(this.ctx, 0, 0,'Game-Over.jpg')
+        this.gameover = new GameOver(this.ctx, 0, 0,'negro.jpg')
     },
 
     createBackground() {
@@ -133,14 +135,14 @@ createGameOver() {
         // }
             
 
-    this.arrayEnemys.push(new Enemys(this.ctx, 3, 1, 100, 80, 80, 'zombiecorre.png', 10));
+    this.arrayEnemys.push(new Enemys(this.ctx, 3, 1, 100, 80, 80, 'zombiecorre.png', 10, 'zombieataca.png',8 ));
 
      
     },
 
 
     createEnemy2() {
-        this.arrayEnemys.push(new Enemy2(this.ctx, this.speedEnemy, 2, 200, 130, 130, 'robotcorre.png', 8));
+        this.arrayEnemys.push(new Enemy2(this.ctx, this.speedEnemy, 2, 200, 130, 130, 'robotcorre.png', 8, 'robotataca.png', 8));
     },
 
 
@@ -151,6 +153,7 @@ createGameOver() {
     },
     scoreScreen() {
         this.ctx.font = '30px serif';
+        
         this.ctx.fillText(`SCORE: ${this.score}`, this.canvasSize.w-250, 40)
 },
 
@@ -184,7 +187,8 @@ setEventListeners() {
            this.hero.heroHeight + this.hero.positiony > this.arrayHearts[i].heartPosY) {
                  if (this.vidas <= 9){
                      this.vidas += 1
-                     this.score +=50
+                     this.score += 50
+                     this.scoreHealth +=50
                  }
                this.arrayHearts.splice(i, 1)
              }
@@ -199,19 +203,30 @@ setEventListeners() {
            this.hero.positiony< this.arrayEnemys[i].enemyPosY + this.arrayEnemys[i].enemySizeh &&
            this.hero.heroHeight + this.hero.positiony > this.arrayEnemys[i].enemyPosY) {
                  if (this.vidas >0 && this.hero.nodamage ===false && this.hero.isAttacking === false){
-                    this.vidas -= this.arrayEnemys[i].damage
+                    this.arrayEnemys[i].hit()
+                     this.vidas -= this.arrayEnemys[i].damage
                      this.hero.invulnerability()                   
                  }
                  if (this.vidas > 0 && (this.hero.isAttacking === true)) {
-                    this.score += this.arrayEnemys[i].score
-                    this.arrayEnemys.splice(i, 1)
+                     if (this.arrayEnemys[i].score === 200) {
+                         this.scoreEnemy2 += 200
+                     }
+                     if (this.arrayEnemys[i].score === 100) {
+                         this.scoreEnemy1 += 100
+                          
+                    
+                    
+
+                     } this.score += this.arrayEnemys[i].score
+                     this.arrayEnemys.splice(i, 1)
+                     
+
                  }
              }
                 }                  
     },
     destroyEnemy() { 
             this.arrayEnemys.pop()
-             console.log("golpe destructor")      
      },
               
     drawHealth(){
@@ -341,7 +356,8 @@ setEventListeners() {
     },
 
     drawBackground() {
-    this.background.draw()
+        this.background.draw()
+
 },
 
 
@@ -349,7 +365,16 @@ setEventListeners() {
     gameOver() {
         if (this.vidas <= 0) {
             this.clearScreen()
-           this.gameover.draw()
+            this.gameover.draw()
+
+            this.ctx.font =  '20px "Press Start 2P"';
+            
+            this.ctx.fillStyle = '#ffffff'
+            this.ctx.fillText(` TAKING HEALTH SCORE: ${this.scoreHealth}`, this.canvasSize.w / 2-150, this.canvasSize.h / 2-150)
+            this.ctx.fillText(` KILLING ZOMBIE SCORE: ${this.scoreEnemy1}`, this.canvasSize.w / 2-150, this.canvasSize.h / 2-100)
+            this.ctx.fillText(` KILLING ROBOT SCORE: ${this.scoreEnemy2}`, this.canvasSize.w / 2-150,this.canvasSize.h / 2-50)
+            
+            this.ctx.fillText(` TOTAL SCORE: ${this.score}`, this.canvasSize.w / 2-75, this.canvasSize.h / 2)
             clearInterval(this.Interval)  
         }
           
@@ -363,12 +388,13 @@ setEventListeners() {
         this.clearScreen()
         this.drawBackground()        
         for (i = 0; i < this.arrayEnemys.length; i++){
-            this.arrayEnemys[i].drawMove(this.frames)
+            this.arrayEnemys[i].drawAll()
         }
         for (i = 0; i < this.arrayHearts.length; i++) {
             this.arrayHearts[i].draw() 
         }
         this.hero.drawAllHero()
+        
         this.drawHealth()
         
         this.scoreScreen()
