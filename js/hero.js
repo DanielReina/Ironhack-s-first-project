@@ -3,7 +3,7 @@ class Hero {
   constructor(ctx, heroPosX, heroPosY) {
     this.isMoving = false;
     this.isAttacking = false;
-    this.direction = '';
+    this.direction = 'right';
     this.ctx = ctx;
     this.positionx = heroPosX;
     this.positiony = heroPosY;
@@ -56,8 +56,9 @@ class Hero {
 
 
   }
-
+// animate que se pare con el numero de frames max 
   drawAllHero() {
+    console.log("esoty dibujado")
     
     if (this.isAttacking === false) {
 
@@ -133,24 +134,12 @@ animateStandL(frames) {
     }
   }
 
-  // righOrLeft() {
-  //   if (this.direction === 'right'){
-  //     console.log('me muevo derecha')
-  //    this.InitialPosition= 'http://localhost:52330/img/ninjacorre.png';
-  //   }
-  //   if (this.direction === 'left') {
-  //     console.log('me muevo izq')
-  //      this.InitialPosition='http://localhost:52330/img/ninjacorreizq.png';
-  //   }
-  // }
+
 
  
   drawMove(frames) {
    
-// this.righOrLeft()
-    // if (this.direction === 'left') {    
-    //   ctx.translate(this.canvasSize.w,0);
-    //   this.ctx.scale(-1, 1);
+
       this.ctx.drawImage(
         this.imageMove,
         this.imageMove.framesIndex * Math.floor(this.imageMove.width / this.imageMove.frames),
@@ -161,19 +150,7 @@ animateStandL(frames) {
         this.positiony,
         this.heroWith = 70,
         this.heroHeight)
-      // this.ctx.scale(-1, 1);
-    // } else {
-    //   this.ctx.drawImage(
-    //     this.imageMove,
-    //     this.imageMove.framesIndex * Math.floor(this.imageMove.width / this.imageMove.frames),
-    //     0,
-    //     Math.floor(this.imageMove.width / this.imageMove.frames),
-    //     this.imageMove.height,
-    //     this.positionx,
-    //     this.positiony,
-    //     this.heroWith = 70,
-    //     this.heroHeight)
-    // }
+  
   
 
     this.animateMove(frames)
@@ -193,9 +170,7 @@ animateStandL(frames) {
   drawMoveL(frames) {
     console.log(this.imageMoveL.src)
 
-    // if (this.direction === 'left') {    
-    //   ctx.translate(this.canvasSize.w,0);
-    //   this.ctx.scale(-1, 1);
+
       this.ctx.drawImage(
         this.imageMoveL,
         this.imageMoveL.framesIndex * Math.floor(this.imageMoveL.width / this.imageMoveL.frames),
@@ -206,20 +181,7 @@ animateStandL(frames) {
         this.positiony,
         this.heroWith = 70,
         this.heroHeight)
-      // this.ctx.scale(-1, 1);
-    // } else {
-    //   this.ctx.drawImage(
-    //     this.imageMove,
-    //     this.imageMove.framesIndex * Math.floor(this.imageMove.width / this.imageMove.frames),
-    //     0,
-    //     Math.floor(this.imageMove.width / this.imageMove.frames),
-    //     this.imageMove.height,
-    //     this.positionx,
-    //     this.positiony,
-    //     this.heroWith = 70,
-    //     this.heroHeight)
-    // }
-  
+ 
 
     this.animateMoveL(frames)
     this.move()
@@ -339,18 +301,6 @@ animateStandL(frames) {
 
     let var2 = setTimeout(invul, 1000, this)
 
-    //     function sizeDown(popino) {
-
-
-    // popino.heroWith = 90;
-    // popino.heroHeight = 90;
-    //     }
-    // var2
-    // this.heroWith =200;
-    // this.heroHeight = 200;
-    // let myvar = setTimeout(sizeDown,1000,this);
-
-    // myvar
 
 }
 
