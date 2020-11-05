@@ -21,25 +21,25 @@ class Enemys {
         this.getRandomArbitrary()      
         
         this.imageMove = new Image()
-        this.imageMove.src = `../img/${this.imageName}`  
+        this.imageMove.src = `./img/${this.imageName}`  
         this.imageMove.frames = frames;
         this.imageMove.framesIndex = 0;
 
         this.imageNameL = enemyImageL;
         this.imageMoveL = new Image()
-        this.imageMoveL.src = `../img/${this.imageNameL}`  
+        this.imageMoveL.src = `./img/${this.imageNameL}`  
         this.imageMoveL.frames = framesL;
         this.imageMoveL.framesIndex = 0;
 
         this.imageName2 = imageAttack;
         this.imageAttack = new Image()
-        this.imageAttack.src = `../img/${this.imageName2}`  
+        this.imageAttack.src = `./img/${this.imageName2}`  
         this.imageAttack.frames = framesAttack;
         this.imageAttack.framesIndex = 0;
 
         this.imageName2L = imageAttackL;
         this.imageAttackL = new Image()
-        this.imageAttackL.src = `../img/${this.imageName2L}`  
+        this.imageAttackL.src = `./img/${this.imageName2L}`  
         this.imageAttackL.frames = framesAttackL;
         this.imageAttackL.framesIndex = 0;
 
