@@ -23,7 +23,7 @@ class Heart{
 
       init(){ 
         this.heartInstance = new Image()
-        this.heartInstance.src = `../img/${this.imageName}`          
+        this.heartInstance.src = `./img/${this.imageName}`          
         }
         
          draw() {
