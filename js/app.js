@@ -51,9 +51,10 @@ let akaneApp = {
 
 
     start() {
+        
         this.scoreScreen()
         this.Interval = setInterval(() => {
-
+            this.song1Sound()
             this.frames > 50000 ? this.frames = 0 : this.frames++
             if (this.frames % this.levelToDifficulty2 === 0) {
             this.createEnemy2()  
@@ -99,6 +100,7 @@ let akaneApp = {
     initmenu() {
         
         this.Interval = setInterval(() => {
+            
             if (this.inicio === true) {
                 this.menu.draw()
 
@@ -245,6 +247,12 @@ setEventListeners() {
                  if (this.vidas >0 && this.hero.nodamage ===false && this.hero.isAttacking === false){
                     this.arrayEnemys[i].hit()
                      this.vidas -= this.arrayEnemys[i].damage
+                     if (this.arrayEnemys[i].damage === 2) {
+                         this.robotAttackSound()
+                     }
+                     if (this.arrayEnemys[i].damage === 1) {
+                         this.zombieAttackSound()
+                     }
                      this.hero.invulnerability()                   
                  }
                  if (this.vidas > 0 && (this.hero.isAttacking === true)) {
@@ -478,12 +486,38 @@ healthSound(){
     let getHeart = document.querySelector('#getHeart')
     getHeart.play()
     },
+
+
+song1Sound(){
+    
+    let song1 = document.querySelector('#song1')
+    song1.play()
+    },
+
+// song2Sound(){
+    
+//     let song2 = document.querySelector('#song2')
+//     song2.play()
+//     },
+
+robotAttackSound(){
+    
+    let robotAttack = document.querySelector('#robotAttack')
+    robotAttack.play()
+    },
+
+zombieAttackSound(){
+
+let zombieAttack = document.querySelector('#zombieAttack')
+zombieAttack.play()
+},
+
 }
 
 window.onload = () => {
    
     akaneApp.initmenu();
-    
+   
   
     akaneApp.init('myCanvas');
 

@@ -11,37 +11,37 @@ class Hero {
     this.heroHeight = 90;
     // this.InitialPosition =  "../img/ninjacorre.png";
     this.imageStand = new Image();
-    this.imageStand.src = "../img/ninjaquieto.png";
+    this.imageStand.src = "./img/ninjaquieto.png";
     this.imageStand.frames = 10;
     this.imageStand.framesIndex = 0;
 
     this.imageStandL = new Image();
-    this.imageStandL.src = "../img/ninjaquietoizq.png";
+    this.imageStandL.src = "./img/ninjaquietoizq.png";
     this.imageStandL.frames = 10;
     this.imageStandL.framesIndex = 0;
 
 
     this.imageMove = new Image();
-    this.imageMove.src = "../img/ninjacorre.png";
+    this.imageMove.src = "./img/ninjacorre.png";
     this.imageMove.frames = 10;
     this.imageMove.framesIndex = 0;
 
 
     this.imageMoveL = new Image();
-    this.imageMoveL.src = "../img/ninjacorreizq.png";
+    this.imageMoveL.src = "./img/ninjacorreizq.png";
     this.imageMoveL.frames = 10;
     this.imageMoveL.framesIndex = 0;
 
 
 
     this.imageAttack = new Image();
-    this.imageAttack.src = "../img/ninjaAtaca.png";
+    this.imageAttack.src = "./img/ninjaAtaca.png";
     this.imageAttack.frames = 9;
     this.imageAttack.framesIndex = 0;
 
 
     this.imageAttackL = new Image();
-    this.imageAttackL.src = "../img/ninjaatacaizq.png";
+    this.imageAttackL.src = "./img/ninjaatacaizq.png";
     this.imageAttackL.frames = 9;
     this.imageAttackL.framesIndex = 0;
 
