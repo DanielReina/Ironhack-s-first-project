@@ -224,7 +224,8 @@ setEventListeners() {
            this.hero.positionx + this.hero.heroWith > this.arrayHearts[i].heartPosX &&
            this.hero.positiony< this.arrayHearts[i].heartPosY + this.arrayHearts[i].heartSizeh &&
            this.hero.heroHeight + this.hero.positiony > this.arrayHearts[i].heartPosY) {
-                 if (this.vidas <= 9){
+               if (this.vidas <= 9) {
+                     this.healthSound()
                      this.vidas += 1
                      this.score += 50
                      this.scoreHealth +=50
@@ -258,6 +259,7 @@ setEventListeners() {
 
                      } this.score += this.arrayEnemys[i].score
                      this.arrayEnemys.splice(i, 1)
+                      this.heroAttackSound()
                      
 
                  }
@@ -466,6 +468,16 @@ setEventListeners() {
         this.ctx.clearRect(0, 0, this.canvasSize.w, this.canvasSize.h)
     },
 
+    heroAttackSound() {
+    let heroAttack = document.querySelector('#heroAttack')
+    heroAttack.play()
+},
+
+healthSound(){
+    
+    let getHeart = document.querySelector('#getHeart')
+    getHeart.play()
+    },
 }
 
 window.onload = () => {
