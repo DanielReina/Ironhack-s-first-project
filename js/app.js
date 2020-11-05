@@ -20,7 +20,8 @@ let akaneApp = {
     },
     arrayEnemys: [],
     arrayHearts: [],
-    arrayBoots: [],   
+    arrayBoots: [],  
+    arraySlug: [],     
     levelToDifficulty: 100,
     levelToDifficulty2: 50,
     vidas:5,
@@ -70,11 +71,16 @@ let akaneApp = {
              this.createBoots()
             }
            
+             if (this.frames % 100 === 0) {
+             this.createSlug()
+            }
+           
             this.hero.move()                
             this.setDifficulty()
             this.collisionEnemy()
             this.collisionHeart()
             this.collisionBoots()
+            this.collisionSlug()
             this.drawAll()       
             this.gameOver()
         }, 150- this.fps)
@@ -113,6 +119,10 @@ let akaneApp = {
             
         
                 this.ctx.fillText(`PRESS ENTER TO START`, this.canvasSize.w / 2, this.canvasSize.h / 2 - 150)  
+                this.ctx.fillStyle = '#161d0b';
+                this.ctx.font = '40px "Press Start 2P"';
+                this.ctx.fillText(`A K A N E`, this.canvasSize.w / 2, this.canvasSize.h / 2 ) 
+                
         
        }
             }, 150 - this.fps)
@@ -189,6 +199,11 @@ createGameOver() {
             this.arrayBoots.push(new Boots(this.ctx, 'botas.png',50,50));
     },
  
+ createSlug() {    
+
+            this.arraySlug.push(new Slug(this.ctx,'babosa.png' ,50,50));
+    },
+ 
     scoreScreen() {
         this.ctx.font = '20px "Press Start 2P"';
         this.ctx.fillStyle = "#331536"
@@ -258,10 +273,28 @@ setEventListeners() {
            this.hero.positiony< this.arrayBoots[i].heartPosY + this.arrayBoots[i].heartSizeh &&
            this.hero.heroHeight + this.hero.positiony > this.arrayBoots[i].heartPosY) {
               
-            this.healthSound()
+            this.ninjarunnigSound()
              this.hero.boots()
-            this.score += 50                
+                          
             this.arrayBoots.splice(i, 1)
+             }
+                }
+    },
+
+
+    collisionSlug() {
+    
+ for (i = 0; i < this.arraySlug.length; i++){
+
+           if (this.hero.positionx < this.arraySlug[i].heartPosX + this.arraySlug[i].heartSizew &&
+           this.hero.positionx + this.hero.heroWith > this.arraySlug[i].heartPosX &&
+           this.hero.positiony< this.arraySlug[i].heartPosY + this.arraySlug[i].heartSizeh &&
+           this.hero.heroHeight + this.hero.positiony > this.arraySlug[i].heartPosY) {
+              
+            this.slugSound()
+            this.hero.slug()
+                        
+            this.arraySlug.splice(i, 1)
              }
                 }
     },
@@ -476,6 +509,8 @@ setEventListeners() {
             this.vidas = 5
             this.arrayEnemys = []
             this.arrayHearts = []
+            this.arraySlug = []
+            this.arrayBoots = []
             this.score = 0            
             this.levelToDifficulty= 100,
                 this.levelToDifficulty2 = 50,
@@ -489,16 +524,21 @@ setEventListeners() {
         
         this.clearScreen()
         this.drawBackground()        
-        for (i = 0; i < this.arrayEnemys.length; i++){
-            this.arrayEnemys[i].drawAll()
-        }
+       
         for (i = 0; i < this.arrayHearts.length; i++) {
             this.arrayHearts[i].draw() 
         }
         for (i = 0; i < this.arrayBoots.length; i++) {
             this.arrayBoots[i].draw() 
         }
-       
+
+        for (i = 0; i < this.arraySlug.length; i++) {
+            this.arraySlug[i].draw() 
+        }
+        for (i = 0; i < this.arrayEnemys.length; i++){
+            this.arrayEnemys[i].drawAll()
+        }
+
         this.hero.drawAllHero()
         
         this.drawHealth()
@@ -546,6 +586,21 @@ zombieAttackSound(){
 let zombieAttack = document.querySelector('#zombieAttack')
 zombieAttack.play()
 },
+
+
+slugSound(){
+
+let slug = document.querySelector('#slug')
+slug.play()
+    },
+
+
+ninjarunnigSound(){
+
+let ninjarunnig = document.querySelector('#ninjarunnig')
+ninjarunnig.play()
+},
+
 
 }
 

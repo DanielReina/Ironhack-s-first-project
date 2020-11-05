@@ -59,7 +59,7 @@ class Hero {
   }
 // animate que se pare con el numero de frames max 
   drawAllHero() {
-    console.log("esoty dibujado")
+    
     
     if (this.isAttacking === false) {
 
@@ -169,7 +169,7 @@ animateStandL(frames) {
 
   
   drawMoveL(frames) {
-    console.log(this.imageMoveL.src)
+    
 
 
       this.ctx.drawImage(
@@ -294,7 +294,7 @@ animateStandL(frames) {
 
 
   invulnerability() {
-    console.log(this.nodamage)
+
      this.nodamage = true
     function invul(bar) {
       bar.nodamage=false
@@ -317,6 +317,23 @@ animateStandL(frames) {
     myvar
 
   }
+
+
+
+  slug() {
+
+
+    function sizeDown(popino) {
+      popino.speed = 7
+    }
+    this.speed = 2
+    let myvar = setTimeout(sizeDown,5000,this);
+
+    myvar
+
+  }
+
+
 
   hit() {
 

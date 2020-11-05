@@ -192,7 +192,7 @@ class Enemys {
    
     
     enemysAppear() {
-    console.log(this.caseScreen)
+    
         switch(this.caseScreen){
             case 1:
             this.enemyPosX = this.getRandomArbitrary(0, this.canvasSize.w)
@@ -235,7 +235,7 @@ class Enemys {
     function sizeDown(popino) {
       popino.isAttacking = false
     }
-    console.log('algo')
+  
     this.isAttacking = true
     let myvar = setTimeout(sizeDown,500,this); 
     
