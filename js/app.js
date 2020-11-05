@@ -20,8 +20,7 @@ let akaneApp = {
     },
     arrayEnemys: [],
     arrayHearts: [],
-    movx : 300,
-    movy: 300,
+    arrayBoots: [],   
     levelToDifficulty: 100,
     levelToDifficulty2: 50,
     vidas:5,
@@ -39,7 +38,8 @@ let akaneApp = {
         this.ctx = this.canvasTag.getContext('2d')
         this.setDimensions()
         this.createHero()
-        this.createHeart()
+        
+        
         this.createHealth()
         this.createGameOver()
         this.createBackground()
@@ -65,11 +65,16 @@ let akaneApp = {
             if (this.frames % 50 === 0) {
              this.createHeart()
             }
+
+             if (this.frames % 250 === 0) {
+             this.createBoots()
+            }
            
             this.hero.move()                
             this.setDifficulty()
             this.collisionEnemy()
             this.collisionHeart()
+            this.collisionBoots()
             this.drawAll()       
             this.gameOver()
         }, 150- this.fps)
@@ -176,8 +181,14 @@ createGameOver() {
 
  createHeart() {    
 
-            this.arrayHearts.push(new Heart(this.ctx, 'corazon.png'));
+            this.arrayHearts.push(new Heart(this.ctx, 'corazon.png',20,20));
     },
+ 
+ createBoots() {    
+
+            this.arrayBoots.push(new Boots(this.ctx, 'botas.png',50,50));
+    },
+ 
     scoreScreen() {
         this.ctx.font = '20px "Press Start 2P"';
         this.ctx.fillStyle = "#331536"
@@ -236,6 +247,26 @@ setEventListeners() {
              }
                 }
     },
+
+
+    collisionBoots() {
+    
+ for (i = 0; i < this.arrayBoots.length; i++){
+
+           if (this.hero.positionx < this.arrayBoots[i].heartPosX + this.arrayBoots[i].heartSizew &&
+           this.hero.positionx + this.hero.heroWith > this.arrayBoots[i].heartPosX &&
+           this.hero.positiony< this.arrayBoots[i].heartPosY + this.arrayBoots[i].heartSizeh &&
+           this.hero.heroHeight + this.hero.positiony > this.arrayBoots[i].heartPosY) {
+              
+            this.healthSound()
+             this.hero.boots()
+            this.score += 50                
+            this.arrayBoots.splice(i, 1)
+             }
+                }
+    },
+
+
     collisionEnemy() {
 
     for (i = 0; i < this.arrayEnemys.length; i++){
@@ -445,8 +476,7 @@ setEventListeners() {
             this.vidas = 5
             this.arrayEnemys = []
             this.arrayHearts = []
-            this.score = 0
-            console.log("resetea")
+            this.score = 0            
             this.levelToDifficulty= 100,
                 this.levelToDifficulty2 = 50,
                     this.speedEnemy= 1,
@@ -465,9 +495,14 @@ setEventListeners() {
         for (i = 0; i < this.arrayHearts.length; i++) {
             this.arrayHearts[i].draw() 
         }
+        for (i = 0; i < this.arrayBoots.length; i++) {
+            this.arrayBoots[i].draw() 
+        }
+       
         this.hero.drawAllHero()
         
         this.drawHealth()
+        
         
         this.scoreScreen()
     

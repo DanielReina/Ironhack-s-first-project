@@ -1,6 +1,7 @@
 class Hero {
 
   constructor(ctx, heroPosX, heroPosY) {
+    this.speed = 7;
     this.isMoving = false;
     this.isAttacking = false;
     this.direction = 'right';
@@ -256,27 +257,27 @@ animateStandL(frames) {
   move() {
     if (this.isMoving === true) {
       if ((this.positionx + (this.heroWith)) <= this.canvasSize.w && this.positionx > 0) {
-        this.direction === 'left' ? this.positionx -= 10: null
-        this.direction === 'right' ? this.positionx += 10: null
+        this.direction === 'left' ? this.positionx -=  this.speed: null
+        this.direction === 'right' ? this.positionx +=  this.speed: null
       }
 
       if (this.positiony + (this.heroHeight) <= this.canvasSize.h && this.positiony > 0) {
-        this.direction === 'up' ? this.positiony -= 10: null
-        this.direction === 'down' ? this.positiony += 10: null
+        this.direction === 'up' ? this.positiony -=  this.speed: null
+        this.direction === 'down' ? this.positiony +=  this.speed: null
       }
 
       if ((this.positionx + (this.heroWith)) <= this.canvasSize.w) {
-        this.direction === 'right' ? this.positionx += 10: null
+        this.direction === 'right' ? this.positionx +=  this.speed: null
       }
       if (this.positionx > 0) {
-        this.direction === 'left' ? this.positionx -= 10: null
+        this.direction === 'left' ? this.positionx -=  this.speed: null
       }
 
       if (this.positiony + (this.heroHeight) <= this.canvasSize.h) {
-        this.direction === 'down' ? this.positiony += 10: null
+        this.direction === 'down' ? this.positiony +=  this.speed: null
       }
       if (this.positiony > 0) {
-        this.direction === 'up' ? this.positiony -= 10 : null
+        this.direction === 'up' ? this.positiony -=  this.speed : null
       }
 
     }
@@ -304,6 +305,18 @@ animateStandL(frames) {
 
 }
 
+  boots() {
+
+
+    function sizeDown(popino) {
+      popino.speed = 7
+    }
+    this.speed = 15
+    let myvar = setTimeout(sizeDown,5000,this);
+
+    myvar
+
+  }
 
   hit() {
 
