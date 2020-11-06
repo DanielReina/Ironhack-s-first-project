@@ -322,14 +322,16 @@ setEventListeners() {
                  if (this.vidas > 0 && (this.hero.isAttacking === true)) {
                      if (this.arrayEnemys[i].score === 200) {
                          this.scoreEnemy2 += 200
+                         this.score += this.arrayEnemys[i].score
                      }
                      if (this.arrayEnemys[i].score === 100) {
                          this.scoreEnemy1 += 100
+                         this.score += this.arrayEnemys[i].score
                           
                     
                     
 
-                     } this.score += this.arrayEnemys[i].score
+                     } 
                      this.arrayEnemys.splice(i, 1)
                       this.heroAttackSound()
                      
@@ -511,7 +513,10 @@ setEventListeners() {
             this.arrayHearts = []
             this.arraySlug = []
             this.arrayBoots = []
-            this.score = 0            
+            this.score = 0       
+            this.scoreEnemy1=0
+            this.scoreEnemy2=0
+            this.scoreHealth=0       
             this.levelToDifficulty= 100,
                 this.levelToDifficulty2 = 50,
                     this.speedEnemy= 1,
